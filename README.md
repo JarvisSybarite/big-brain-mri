@@ -15,9 +15,37 @@ flowchart LR
 
 I verified the rebuild end to end using synthetic images, including training both models, evaluation, inference, and latency measurement. A real MRI dataset and the original baselines are needed to assess accuracy or measure changes in false positives and inference time.
 
-## Original project paper
+## Original research showcase
 
-[BigBrain Research Paper (PDF on Google Drive)](https://drive.google.com/file/d/1U5X72FCQSGSLBYWwEU2c2pfZs33EsYRX/view) documents the original project. This repository contains the later implementation. Its verification results come from the synthetic workflow described below.
+The original BigBrain project used a two-stage workflow. The first classifier screened for brain images. The second classified brain images as normal or abnormal. The paper describes roughly 720 images for the screening task and 400 images for the second task, with T1-weighted, T2-weighted, and FLAIR scans in the brain image collection. The team manually labeled images in a Jupyter notebook and explored OpenCV resizing, median blur, bilateral filtering, and intensity histograms. [Read the original paper (PDF)](https://drive.google.com/file/d/1U5X72FCQSGSLBYWwEU2c2pfZs33EsYRX/view)
+
+The custom CNN used four 3×3 convolution layers with 32, 64, 64, and 128 filters, followed by a dense classification head. The design used max pooling and dropout. A separate variant added training-time translation, flipping, rotation, contrast adjustment, and zoom. See Section IV for the workflow and Section V for the model specifications.
+
+| Original model | Accuracy reported in Table 1 |
+| --- | ---: |
+| Custom CNN | 92.31% |
+| ANN | 80.77% |
+| CNN with augmentation | 80.77% |
+| AlexNet | 69.23% |
+| VGG16 | 61.54% |
+
+Table 1 attributes 92.31% to the **custom CNN**. Figure 8's diagonal sums to 88.46%. The paper does not reconcile the figures or establish that they came from the same evaluation run. These are historical results. The VGG16–AlexNet ensemble in this repository was verified on synthetic images.
+
+### Confusion matrix and ROC curve
+
+![Figure 8 confusion matrix with 26.92% and 61.54% on the diagonal](paper-confusion-matrix.png)
+
+*Figure 8 from the original paper. Rows show actual labels and columns show predicted labels.*
+
+![Figure 9 showing training and test ROC curves](paper-roc-curve.png)
+
+*Figure 9 from the original paper. ROC curves plot sensitivity against false-positive rate across decision thresholds.*
+
+### Original web prototype
+
+![Figure 10 showing the original upload interface with a sample scan](paper-web-app.png)
+
+*Figure 10 from the original paper. The team used this prototype to demonstrate image upload and classification.*
 
 ## Setup
 
