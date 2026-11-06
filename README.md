@@ -15,6 +15,10 @@ flowchart LR
 
 I verified the rebuild end to end using synthetic images, including training both models, evaluation, inference, and latency measurement. A real MRI dataset and the original baselines are needed to assess accuracy or measure changes in false positives and inference time.
 
+## Original project paper
+
+[BigBrain Research Paper (PDF on Google Drive)](https://drive.google.com/file/d/1U5X72FCQSGSLBYWwEU2c2pfZs33EsYRX/view) documents the original project. This repository contains the later implementation. Its verification results come from the synthetic workflow described below.
+
 ## Setup
 
 Use Python 3.11 or 3.12. A GPU is optional for the smoke run and helpful for full training.
