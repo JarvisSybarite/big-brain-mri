@@ -39,6 +39,14 @@ python big_brain.py predict runs/demo data/demo/synthetic-1-00.png
 python big_brain.py benchmark runs/demo data/demo/synthetic-1-00.png
 ```
 
+## Suggested dataset
+
+[Gazi Brains 2020 on Kaggle](https://www.kaggle.com/datasets/gazibrains2020/gazi-brains-2020) contains MRI studies from 100 subjects, evenly divided between high-grade glioma and controls. The subject grouping makes it possible to keep every slice from one person in the same split. [Dataset paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC12192951/)
+
+For a first run, choose one MRI sequence available in both groups and apply the same axial slice selection and intensity conversion to all subjects. Export 8-bit PNGs and use the dataset's subject identifier as `patient_id`. Assign `label=1` to high-grade glioma cases and `label=0` to controls. Build the CSV described below, then use the same patient split for both models.
+
+Report the task as **high-grade glioma vs. control on Gazi Brains 2020**. The verified run in this repo used synthetic images. Gazi Brains is the proposed dataset for a future real-data evaluation. Download it from the source under its terms and keep the scans outside version control.
+
 ## Train with your own data
 
 Use a dataset you are authorized to use with both tumor-positive and tumor-negative patients. Supply comparable, de-identified 2D PNG exports from a consistent MRI sequence and view. A positive label refers to the patient, so every slice for that patient has the same label. The loader expects 8-bit exports. Prepare volumetric DICOM or NIfTI studies upstream using a documented extraction and intensity-windowing protocol.
